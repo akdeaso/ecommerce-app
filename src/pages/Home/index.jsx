@@ -15,13 +15,9 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
-  const categories = [
-    "electronics",
-    "jewelery",
-    "men's clothing",
-    "women's clothing",
-  ];
+  const categories = ["kaos", "baju", "ukuran-s", "ukuran-m"];
 
   const handleAddToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
@@ -67,36 +63,49 @@ const Home = () => {
     setCartItems([]);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get("https://fakestoreapi.com/products");
-        const products = response.data;
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        "https://sistemtoko.com/public/demo/product"
+      );
+      const products = response.data.aaData;
+      console.log(products.childs);
+      let filtered = products.filter((product) => {
+        const title = product.name.toLowerCase();
+        const hasKeyword =
+          product.keywords.length > 0
+            ? product.keywords.some((keyword) =>
+                keyword.text.toLowerCase().includes(searchKeyword.toLowerCase())
+              )
+            : false;
 
-        let filtered = products.filter((product) =>
-          product.title.toLowerCase().includes(searchQuery.toLowerCase())
+        return title.includes(searchQuery.toLowerCase()) || hasKeyword;
+      });
+      if (selectedCategory) {
+        filtered = filtered.filter((product) =>
+          product.keywords.some(
+            (keyword) =>
+              keyword.text.toLowerCase() === selectedCategory.toLowerCase()
+          )
         );
-
-        if (selectedCategory) {
-          filtered = filtered.filter(
-            (product) => product.category === selectedCategory
-          );
-        }
-
-        setFilteredProducts(filtered);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
       }
-    };
+      setFilteredProducts(filtered);
+      console.log("cart", cartItems);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, searchKeyword]);
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category === selectedCategory ? null : category);
+    setSearchKeyword("");
   };
 
   const handleSearch = (query) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 import { BsTrash, BsPlusCircleFill, BsDashCircleFill } from "react-icons/bs";
+import { convertToInt, convertToRupiah } from "../utils";
 
 const Cart = ({
   cartItems,
@@ -11,7 +12,7 @@ const Cart = ({
 }) => {
   // Menghitung total harga
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + convertToInt(item.price) * item.quantity,
     0
   );
 
@@ -70,7 +71,7 @@ const Cart = ({
       {cartItems.length > 0 && (
         <>
           <div className="total-price mt-2" style={{ userSelect: "none" }}>
-            <h5>Total Price: Rp {totalPrice}</h5>
+            <h5>Total Price: {convertToRupiah(totalPrice)}</h5>
           </div>
           <div className="checkout">
             <button
