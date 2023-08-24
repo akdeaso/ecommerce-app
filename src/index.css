@@ -1,0 +1,17 @@
+html, body {
+  font-family: Roboto, Helvetica, sans-serif;
+  line-height: 1.5;
+  font-weight: bold;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  /* background: linear-gradient(225deg, #7e7e7e, #444444); */
+  background: rgb(184,184,184);
+  background: radial-gradient(circle, rgba(184,184,184,1) 0%, rgba(44,44,44,1) 100%);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
