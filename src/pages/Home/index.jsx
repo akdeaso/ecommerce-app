@@ -7,6 +7,7 @@ import Cart from "../../components/Cart";
 import AppNavbar from "../../components/Navbar";
 import CategoryFilter from "../../components/CategoryFilter";
 import ToastMessage from "../../components/Toast";
+import { BASE_URL_API } from "../../utils/constant";
 
 const Home = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -66,11 +67,8 @@ const Home = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "https://sistemtoko.com/public/demo/product"
-      );
+      const response = await axios.get(BASE_URL_API);
       const products = response.data.aaData;
-      console.log(products.childs);
       let filtered = products.filter((product) => {
         const title = product.name.toLowerCase();
         const hasKeyword =

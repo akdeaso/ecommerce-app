@@ -1,7 +1,7 @@
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 import { BsTrash, BsPlusCircleFill, BsDashCircleFill } from "react-icons/bs";
-import { convertToInt, convertToRupiah } from "../utils";
+import { convertToInt, convertToRupiah } from "../utils/converter";
 
 const Cart = ({
   cartItems,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button, Badge } from "react-bootstrap";
 import { BsCartPlus } from "react-icons/bs";
-import { convertToInt, convertToRupiah } from "../utils";
+import { convertToInt, convertToRupiah } from "../utils/converter";
 
 const ProductCard = ({ product, onAddToCart }) => {
   const maxLength = 20;
